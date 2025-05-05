@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+﻿using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 public class Qualification
 {
     public int QualificationId { get; set; }
+
     public string Course { get; set; }
     public string University { get; set; }
     public int Year { get; set; }

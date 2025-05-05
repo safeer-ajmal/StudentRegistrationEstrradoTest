@@ -34,3 +34,4 @@ public class StudentViewModel
 
     public List<Qualification> Qualifications { get; set; }
 }
+
