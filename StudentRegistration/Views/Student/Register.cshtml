@@ -1,0 +1,116 @@
+﻿@model StudentViewModel
+@{
+    ViewBag.Title = "Student Registration";
+}
+
+<h2>Student Registration</h2>
+
+@section Scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            let index = 0;
+
+            $("#addQualification").click(function () {
+                index++;
+
+                const newRow = `
+                    <tr>
+                        <td><input name="Qualifications[${index}].Course" class="form-control" required /></td>
+                        <td><input name="Qualifications[${index}].University" class="form-control" required /></td>
+                        <td><input name="Qualifications[${index}].Year" type="number" class="form-control" required /></td>
+                        <td><input name="Qualifications[${index}].Percentage" type="number" step="0.01" class="form-control" required /></td>
+                    </tr>`;
+                $("#qualificationTable tbody").append(newRow);
+            });
+        });
+    </script>
+}
+
+@using (Html.BeginForm("Register", "Student", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="form-group">
+        @Html.LabelFor(m => m.FirstName)
+        @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.FirstName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastName)
+        @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.LastName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Age)
+        @Html.TextBoxFor(m => m.Age, new { @class = "form-control", type = "number" })
+        @Html.ValidationMessageFor(m => m.Age)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.DOB)
+        @Html.TextBoxFor(m => m.DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+        @Html.ValidationMessageFor(m => m.DOB)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Gender)
+        @Html.DropDownListFor(m => m.Gender, new SelectList(new[] { "Male", "Female", "Other" }), "Select Gender", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Gender)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+        @Html.ValidationMessageFor(m => m.Email)
+
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control", type = "tel" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Username)
+        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Username)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Password)
+    </div>
+
+    <h4>Qualifications</h4>
+    <table class="table" id="qualificationTable">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>University</th>
+                <th>Year</th>
+                <th>Percentage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input name="Qualifications[0].Course" class="form-control" required /></td>
+                <td><input name="Qualifications[0].University" class="form-control" required /></td>
+                <td><input name="Qualifications[0].Year" type="number" class="form-control" required /></td>
+                <td><input name="Qualifications[0].Percentage" type="number" step="0.01" class="form-control" required /></td>
+            </tr>
+        </tbody>
+    </table>
+    <button type="button" id="addQualification" class="btn btn-secondary">Add</button>
+
+    <br />
+    <br />
+    <input type="submit" value="Register" class="btn btn-primary" />
+
+}

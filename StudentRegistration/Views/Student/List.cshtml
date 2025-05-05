@@ -1,0 +1,46 @@
+﻿@model List<StudentViewModel>
+@{
+    ViewBag.Title = "Student Details";
+}
+
+<h2>Welcome, @Model.FirstOrDefault()?.Username</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Full Name</th>
+        <th>Age</th>
+        <th>DOB</th>
+        <th>Gender</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Username</th>
+        <th>Qualifications</th>
+    </tr>
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.FirstName @student.LastName</td>
+            <td>@student.Age</td>
+            <td>@student.DOB.ToString("yyyy-MM-dd")</td>
+            <td>@student.Gender</td>
+            <td>@student.Email</td>
+            <td>@student.PhoneNumber</td>
+            <td>@student.Username</td>
+            <td>
+                @if (student.Qualifications != null && student.Qualifications.Any())
+                {
+                    <ul>
+                        @foreach (var qualification in student.Qualifications)
+                        {
+                            <li>@qualification.Course (@qualification.Year)</li>
+                        }
+                    </ul>
+                }
+                else
+                {
+                    <em>No qualifications</em>
+                }
+            </td>
+        </tr>
+    }
+</table>
